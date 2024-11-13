@@ -1,16 +1,21 @@
 ### Векторное представление слов
-### 2 words: "завод" and "отрасль"
+### 2 words target: "завод" and "отрасль"
 
-import gensim       
-import re
+import gensim       #gensim is a library used to build deep learning models for natural language processing
+import re           #re is a library that supports regular expressions for working with text strings
 
+# load the word2vec model using KeyedVectors from the gensim library
+word2vec = gensim.models.KeyedVectors.load_word2vec_format("/Users/vuhoanganh/Documents/семестр 7/cbow.txt", binary=False)
+
+# define words (positive context) for which the model will find similar words
+pos = ['предприятие_NOUN', 'промышленность_NOUN']
+
+# return a list of 10 most similar words to those in pos (topn=10)
+dist = word2vec.most_similar(positive=pos, topn=10)
+
+# find words with the suffix "_NOUN" 
 pat = re.compile("(.*)_NOUN")
 
-word2vec = gensim.models.KeyedVectors.load_word2vec_format("/Users/vuhoanganh/Documents/семестр 7/Обработка естественного языка/NLP/Lab2/cbow.txt", binary=False)
-
-pos = ["завод_NOUN", "отрасль_NOUN"]
-
-dist = word2vec.most_similar(positive=pos, topn=10)
 for i in dist:
     print(i)
 for i in dist:
@@ -18,23 +23,23 @@ for i in dist:
     if e is not None:
         print(e.group(1))
 
-
-# result:
-# ('предприятие_NOUN', 0.7937479615211487)
-# ('промышленность_NOUN', 0.775575578212738)
-# ('производство_NOUN', 0.7192516922950745)
-# ('комбинат_NOUN', 0.6872789859771729)
-# ('промышленный_ADJ', 0.6495099067687988)
-# ('подотрасль_NOUN', 0.6494302153587341)
-# ('машиностроительный_ADJ', 0.6254802942276001)
-# ('машиностроение_NOUN', 0.6004259586334229)
-# ('нефтепереработка_NOUN', 0.5961022973060608)
-# ('автозавод_NOUN', 0.5927801728248596)
-# предприятие
-# промышленность
-# производство
-# комбинат
-# подотрасль
-# машиностроение
-# нефтепереработка
-# автозавод
+""" 
+('отрасль_NOUN', 0.7817014455795288)
+('производство_NOUN', 0.7622565031051636)
+('промышленный_ADJ', 0.733397364616394)
+('продукция_NOUN', 0.6384241580963135)
+('машиностроение_NOUN', 0.6341099143028259)
+('комбинат_NOUN', 0.6316563487052917)
+('завод_NOUN', 0.6256354451179504)
+('производственный_ADJ', 0.6253886222839355)
+('индустрия_NOUN', 0.6100884079933167)
+('подотрасль_NOUN', 0.5892025232315063)
+отрасль
+производство
+продукция
+машиностроение
+комбинат
+завод
+индустрия
+подотрасль 
+"""
