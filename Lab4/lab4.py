@@ -1,4 +1,5 @@
 ### Практическая работа "Маскирование слов"
+# Words target: "хорошо" and "всегда"
 
 # Preparation
 from transformers import BertTokenizer, BertForMaskedLM     
